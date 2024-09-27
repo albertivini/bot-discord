@@ -1,3 +1,3 @@
 export const CONFIG = {
-    POINT_RATE: 5,
-}
+    POINT_RATE: 0.1,
+};

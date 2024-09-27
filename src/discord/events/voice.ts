@@ -1,17 +1,29 @@
 import { Event } from "#base";
 import { db } from "#database";
-import { CONFIG } from "constants/config.js";
+import { CONFIG } from "../../constants/config.js";
 
 new Event({
   name: "Logs de entrada",
   event: "voiceStateUpdate",
   async run(oldState, newState) {
-    if (oldState.channelId === "847248441196675123") {
+
+    if (oldState.channelId === "805121174416654336") {
       const member = oldState.member;
 
       const memberId = member?.id;
 
       const memberInDatabase = await db.members.get(`${memberId}`);
+
+      if (!memberInDatabase) {
+        const bodyToSave = {
+          username: member?.user.username,
+          nickname: member?.nickname,
+          pontos: 0,
+          tempoEmSegundos: 0,
+        };
+
+        db.members.set(`${memberId}`, bodyToSave);
+      }
 
       const horarioSaida = Date.now();
 
@@ -20,7 +32,7 @@ new Event({
 
         const tempoSegundos = Math.round(tempoMs / 1000);
 
-        const pontos = tempoSegundos * CONFIG.POINT_RATE;
+        const pontos = Math.floor(tempoSegundos * CONFIG.POINT_RATE);
 
         memberInDatabase.horarioDeEntrada = undefined;
 
@@ -31,7 +43,7 @@ new Event({
       db.members.set(`${memberId}`, memberInDatabase);
     }
 
-    if (newState.channelId === "847248441196675123") {
+    if (newState.channelId === "805121174416654336") {
       const member = newState.member;
 
       const memberId = member?.id;

@@ -18,7 +18,8 @@ export enum ResponderType {
     Row="Row",
     Modal="Modal",
     ModalComponent="Modal component",
-    All="Component or modal"
+    All="Component or modal",
+    SelectMenu = "SelectMenu",
 }
 export type ResponderInteraction<Type extends ResponderType, Cache extends CacheType> = {
     [ResponderType.Button]: ButtonInteraction<Cache>,
@@ -32,6 +33,7 @@ export type ResponderInteraction<Type extends ResponderType, Cache extends Cache
     [ResponderType.Modal]: ModalSubmitInteraction<Cache>,
     [ResponderType.ModalComponent]: ModalMessageModalSubmitInteraction<Cache>,
     [ResponderType.All]: MessageComponentInteraction<Cache> | ModalSubmitInteraction<Cache>
+    [ResponderType.SelectMenu]: StringSelectMenuInteraction<Cache>
 }[Type]
 
 type ResolveParams<Path, Parsed> = Parsed extends { [x: string | number | symbol]: any } ? Parsed : Params<Path>;
