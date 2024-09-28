@@ -1,4 +1,4 @@
-# Awesome Bot Base
+# Bot de Loja de pontos
 
 > [!NOTE] 
 > This project **base** can be generated using the [Constant CLI](https://github.com/rinckodev/constatic)
