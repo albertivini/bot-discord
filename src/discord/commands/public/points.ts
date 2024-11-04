@@ -20,16 +20,17 @@ new Command({
       };
     });
 
-    const medalEmojis = ["🥇", "🥈", "🥉"]; 
-    const lastPlaceEmoji = "🐛"; 
-    const emptySpace = "⠀"; 
-    const lastIndex = mapped.length - 1; 
+    const medalEmojis = ["🥇", "🥈", "🥉"];
+    const lastPlaceEmoji = "🐛";
+    const emptySpace = "⠀";
+    const lastPlaceCount = 3;
+    const lastPlaceStartIndex = mapped.length - lastPlaceCount;
 
     const rankingMessage = mapped
       .map((member, index) => {
         const medal =
           medalEmojis[index] ||
-          (index === lastIndex ? lastPlaceEmoji : emptySpace);
+          (index >= lastPlaceStartIndex ? lastPlaceEmoji : emptySpace);
         return `${medal} **#${member.Posição}** | **Usuário**: *${
           member.Usuário
         }* | **Apelido**: *${member.Apelido || "N/A"}* | **Pontuação**: \`${
